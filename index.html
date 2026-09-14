@@ -188,6 +188,12 @@
     <!-- Dark Grading Contrast Overlay -->
     <div class="video-overlay"></div>
 
+    <!-- Hidden Loop Audio Engine Track -->
+    <audio id="ambient-audio" loop prelaod="auto">
+        <source src="backgroundsound.mp3" type="audio/mpeg">
+    </audio>
+
+
     <!-- Interface Structure Wrapper -->
     <div class="container">
         
@@ -208,6 +214,19 @@
         </section>
 
     </div>
+
+    <!-- Script Engine to Safely Play/Pause Audio -->
+    <script>
+        const audioTrack = document.getElementById('ambient-audio');
+        
+        // Browsers block auto-play by default. This forces audio to play 
+        // the microsecond a user taps anywhere on your website!
+        document.body.addEventListener('click', () => {
+            if (audioTrack.paused) {
+                audioTrack.play().catch(err => console.log("Audio waiting for explicit interaction: ", err));
+            }
+        }, { once: true }); // Runs only on the very first click
+    </script>
 
 </body>
 </html>
